@@ -29,7 +29,10 @@ public class PlayerCharacterScript : MonoBehaviour
 
     private void Jump()
     {
-        rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        if(Grounded)
+        {
+            rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
     }
     void Move()
     {
@@ -67,6 +70,19 @@ public class PlayerCharacterScript : MonoBehaviour
         if(collision.gameObject.CompareTag("LeftWall"))
         {
             spriteRenderer.flipX = false;
+        }
+
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Grounded = true;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D Collider)
+    {
+        if (Collider.gameObject.CompareTag("Ground"))
+        {
+            Grounded = false;
         }
     }
 
