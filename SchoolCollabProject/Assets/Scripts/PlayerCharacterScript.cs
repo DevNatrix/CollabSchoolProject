@@ -15,49 +15,24 @@ public class PlayerCharacterScript : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Jump();
-        }
 
-        CheckIfGrounded();
     }
 
-    private void CheckIfGrounded()
+
+    private void FixedUpdate()
     {
-        RaycastHit hit;
-        Ray landingRay = new Ray(transform.position, Vector3.down);
-        Debug.DrawRay(transform.position, Vector3.down * 5);
+        Move();
 
-        if (Physics.Raycast(landingRay, out hit, 5))
+        if (Input.GetButtonDown("Jump"))
         {
-            if (hit.collider == null)
-            {
-                Grounded = false;
-                Debug.Log(Grounded);
-            }
-            else
-            {
-                Grounded = true;
-                Debug.Log(Grounded);
-            }
-
+            Jump();
         }
     }
 
     private void Jump()
     {
-        if(Grounded)
-        {
-            rb2d.AddForce(Vector2.up * jumpForce * Time.deltaTime, ForceMode2D.Impulse);
-        }
+        rb2d.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
-
-    private void FixedUpdate()
-    {
-        Move();
-    }
-
     void Move()
     {
         if(spriteRenderer.flipX == false)
