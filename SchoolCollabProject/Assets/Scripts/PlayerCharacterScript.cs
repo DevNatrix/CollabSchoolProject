@@ -15,18 +15,16 @@ public class PlayerCharacterScript : MonoBehaviour
 
     private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+        }
     }
 
 
     private void FixedUpdate()
     {
         Move();
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            Jump();
-        }
     }
 
     private void Jump()
