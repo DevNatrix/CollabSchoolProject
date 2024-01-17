@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 public class PlayerCharacterScript : MonoBehaviour
 {
@@ -83,6 +85,15 @@ public class PlayerCharacterScript : MonoBehaviour
         if (Collider.gameObject.CompareTag("Ground"))
         {
             Grounded = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Win"))
+        {
+            Debug.Log("You win");
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
